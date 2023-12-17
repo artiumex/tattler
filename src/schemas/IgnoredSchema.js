@@ -12,6 +12,7 @@ const schema = new Schema({
     },
 });
 
-schema.watch().on('change', data => pingCat());
+const newmodel = model('IgnoredSchema', schema);
+newmodel.watch().on('change', data => pingCat());
 
-module.exports = model('IgnoredSchema', schema);
+module.exports = newmodel;

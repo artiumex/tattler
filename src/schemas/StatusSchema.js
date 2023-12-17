@@ -12,6 +12,7 @@ const schema = new Schema({
     },
 });
 
-schema.watch().on('change', data => pingCat());
+const newmodel = model('StatusSchema', schema);
+newmodel.watch().on('change', data => pingCat());
 
-module.exports = model('StatusSchema', schema);
+module.exports = newmodel;

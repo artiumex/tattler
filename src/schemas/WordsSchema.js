@@ -24,6 +24,7 @@ const schema = new Schema({
     },
 });
 
-schema.watch().on('change', data => pingCat());
+const newmodel = model('WordsSchema', schema);
+newmodel.watch().on('change', data => pingCat());
 
-module.exports = model('WordsSchema', schema);
+module.exports = newmodel;

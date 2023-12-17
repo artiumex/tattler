@@ -38,8 +38,9 @@ const random = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const pingCat = () => {
-  axios.get(process.env.CAT_URL + '/updated')
+const pingCat = async () => {
+  await axios.get(process.env.CAT_URL + '/updated');
+  log('pinged the cat!', 'event');
 }
 
 module.exports = {
