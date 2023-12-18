@@ -4,6 +4,7 @@ const { log, random } = require("../functions");
 const Words = require('../schemas/WordsSchema');
 const Statuses = require('../schemas/StatusSchema');
 const Ignored = require('../schemas/IgnoredSchema');
+const Bot = require('../schemas/BotSettingsSchema');
 
 const app = express();
 
@@ -16,6 +17,7 @@ module.exports = () => {
         const words = await Words.find({});
         const ignored = await Ignored.find({});
         const status = await Statuses.find({});
+        const settings = await Bot.find({ botid: process.env.CAT_ID });
 
         const ss = status.map(e => { if (e.enabled) return e.phrase });
         
@@ -30,7 +32,8 @@ module.exports = () => {
                 return output
             }),
             presence: ss[random(0, ss.length-1)],
-            ignored: ignored.map(e => { if (e.enabled) return e.userid })
+            change_status: settings.change_status,
+            ignored: ignored.map(e => { if (e.enabled) return e.userid }),
         });
     });
 }
